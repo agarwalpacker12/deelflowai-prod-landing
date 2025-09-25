@@ -30,12 +30,7 @@ function Banner() {
               10x faster
             </span>
             with
-            <span
-              style={{
-                color: "#fbbf24",
-                fontWeight: "bold",
-              }}
-            >
+            <span style={{ color: "#fbbf24", fontWeight: "bold" }}>
               94% accuracy
             </span>
             while others struggle with outdated methods
