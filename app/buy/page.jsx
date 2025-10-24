@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const SellerBuyerForms = () => {
+const BuyerForms = () => {
   const [activeForm, setActiveForm] = useState("none"); // 'seller', 'buyer', 'none'
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -709,8 +709,11 @@ const SellerBuyerForms = () => {
         <div style={styles.heroSection}>
           <div style={styles.heroContent}>
             <h1 style={styles.heroTitle}>
-              Get Your Property <span style={styles.highlight}>Evaluated</span>{" "}
-              Today
+              {/* Get Your Property <span style={styles.highlight}>Evaluated</span>{" "}
+              Today */}
+              Join our Expanding List of Buyers and Receive the{" "}
+              <span style={styles.highlight}> Best Value</span> in the Next
+              Purchase
             </h1>
             <p style={styles.heroDescription}>
               Whether you're looking to sell quickly or find your next
@@ -721,114 +724,6 @@ const SellerBuyerForms = () => {
 
           <div style={styles.formSelectionGrid}>
             {/* Sell Your House Card */}
-            <div style={styles.selectionCard}>
-              <div style={styles.cardHeader}>
-                <div style={{ ...styles.cardIcon, ...styles.sellIcon }}>
-                  <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <polyline points="9,22 9,12 15,12 15,22" />
-                  </svg>
-                </div>
-                <h2 style={styles.cardTitle}>Sell Your House</h2>
-                <p style={styles.cardSubtitle}>
-                  Get a quick cash offer evaluation
-                </p>
-              </div>
-
-              <div style={styles.cardBenefits}>
-                <div style={styles.benefit}>
-                  <svg
-                    style={styles.checkIcon}
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M9 11l3 3L22 4" />
-                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-                  </svg>
-                  <span style={styles.benefitText}>
-                    Free property evaluation in 24 hours
-                  </span>
-                </div>
-                <div style={styles.benefit}>
-                  <svg
-                    style={styles.checkIcon}
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M9 11l3 3L22 4" />
-                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-                  </svg>
-                  <span style={styles.benefitText}>
-                    No repairs or staging required
-                  </span>
-                </div>
-                <div style={styles.benefit}>
-                  <svg
-                    style={styles.checkIcon}
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M9 11l3 3L22 4" />
-                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-                  </svg>
-                  <span style={styles.benefitText}>
-                    Close in as little as 7 days
-                  </span>
-                </div>
-                <div style={styles.benefit}>
-                  <svg
-                    style={styles.checkIcon}
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M9 11l3 3L22 4" />
-                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-                  </svg>
-                  <span style={styles.benefitText}>No commissions or fees</span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => startForm("seller")}
-                style={{ ...styles.cardButton, ...styles.sellButton }}
-              >
-                Submit Your Property
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12,5 19,12 12,19" />
-                </svg>
-              </button>
-            </div>
 
             {/* Find Investment Properties Card */}
             <div style={styles.selectionCard}>
@@ -1022,11 +917,6 @@ const SellerBuyerForms = () => {
                 ? "Submit Your Property for a Quick Evaluation"
                 : "Find Your Next Investment Property"}
             </h1>
-            <p style={styles.formSubtitle}>
-              {activeForm === "seller"
-                ? "Get a fair cash offer for your property in 24 hours"
-                : "Discover profitable investment opportunities curated by AI"}
-            </p>
           </div>
           <button onClick={resetForm} style={styles.closeButton}>
             <svg
@@ -1337,207 +1227,6 @@ const SellerBuyerForms = () => {
                 <p style={styles.securityNote}>
                   All information is kept strictly confidential and secure.
                 </p>
-              </div>
-            </div>
-          )}
-
-          {/* Step 2: Property Details (Seller) */}
-          {currentStep === 2 && activeForm === "seller" && (
-            <div style={styles.step}>
-              <h2 style={styles.stepTitle}>Tell us about your property</h2>
-
-              <div style={styles.formGrid}>
-                <div style={{ ...styles.inputGroup, ...styles.fullWidth }}>
-                  <label style={styles.label}>Property Address *</label>
-                  <div style={styles.inputWrapper}>
-                    <svg
-                      style={styles.inputIcon}
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <pin cx="12" cy="10" r="3" />
-                      <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z" />
-                    </svg>
-                    <input
-                      type="text"
-                      value={formData.address}
-                      onChange={(e) =>
-                        handleInputChange("address", e.target.value)
-                      }
-                      style={{ ...styles.input, ...styles.inputWithIcon }}
-                      placeholder="123 Main Street"
-                    />
-                  </div>
-                </div>
-
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>City *</label>
-                  <input
-                    type="text"
-                    value={formData.city}
-                    onChange={(e) => handleInputChange("city", e.target.value)}
-                    style={styles.input}
-                    placeholder="Dallas"
-                  />
-                </div>
-
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>State *</label>
-                  <select
-                    value={formData.state}
-                    onChange={(e) => handleInputChange("state", e.target.value)}
-                    style={styles.select}
-                  >
-                    <option value="">Select State</option>
-                    <option value="TX">Texas</option>
-                    <option value="FL">Florida</option>
-                    <option value="CA">California</option>
-                    <option value="NY">New York</option>
-                  </select>
-                </div>
-
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Property Type *</label>
-                  <select
-                    value={formData.propertyType}
-                    onChange={(e) =>
-                      handleInputChange("propertyType", e.target.value)
-                    }
-                    style={styles.select}
-                  >
-                    <option value="">Select Property Type</option>
-                    <option value="single-family">Single Family Home</option>
-                    <option value="townhouse">Townhouse</option>
-                    <option value="condo">Condominium</option>
-                    <option value="multi-family">Multi-Family</option>
-                    <option value="commercial">Commercial</option>
-                    <option value="land">Land/Lot</option>
-                  </select>
-                </div>
-
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Bedrooms *</label>
-                  <select
-                    value={formData.bedrooms}
-                    onChange={(e) =>
-                      handleInputChange("bedrooms", e.target.value)
-                    }
-                    style={styles.select}
-                  >
-                    <option value="">Select Bedrooms</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5+">5+</option>
-                  </select>
-                </div>
-
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Bathrooms *</label>
-                  <select
-                    value={formData.bathrooms}
-                    onChange={(e) =>
-                      handleInputChange("bathrooms", e.target.value)
-                    }
-                    style={styles.select}
-                  >
-                    <option value="">Select Bathrooms</option>
-                    <option value="1">1</option>
-                    <option value="1.5">1.5</option>
-                    <option value="2">2</option>
-                    <option value="2.5">2.5</option>
-                    <option value="3">3</option>
-                    <option value="3.5">3.5</option>
-                    <option value="4+">4+</option>
-                  </select>
-                </div>
-
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Square Footage</label>
-                  <input
-                    type="number"
-                    value={formData.squareFeet}
-                    onChange={(e) =>
-                      handleInputChange("squareFeet", e.target.value)
-                    }
-                    style={styles.input}
-                    placeholder="1,200"
-                  />
-                </div>
-
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Year Built</label>
-                  <input
-                    type="number"
-                    value={formData.yearBuilt}
-                    onChange={(e) =>
-                      handleInputChange("yearBuilt", e.target.value)
-                    }
-                    style={styles.input}
-                    placeholder="1995"
-                  />
-                </div>
-
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Property Condition</label>
-                  <select
-                    value={formData.condition}
-                    onChange={(e) =>
-                      handleInputChange("condition", e.target.value)
-                    }
-                    style={styles.select}
-                  >
-                    <option value="">Select Condition</option>
-                    <option value="excellent">Excellent - Move-in ready</option>
-                    <option value="good">Good - Minor repairs needed</option>
-                    <option value="fair">Fair - Some repairs needed</option>
-                    <option value="poor">Poor - Major repairs needed</option>
-                  </select>
-                </div>
-
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Desired Sales Timeline</label>
-                  <select
-                    value={formData.timeline}
-                    onChange={(e) =>
-                      handleInputChange("timeline", e.target.value)
-                    }
-                    style={styles.select}
-                  >
-                    <option value="">Select Timeline</option>
-                    <option value="immediate">ASAP - Under 30 days</option>
-                    <option value="1-3months">1-3 months</option>
-                    <option value="3-6months">3-6 months</option>
-                    <option value="flexible">Flexible timeline</option>
-                  </select>
-                </div>
-
-                <div style={{ ...styles.inputGroup, ...styles.fullWidth }}>
-                  <label style={styles.label}>
-                    Reason for Selling (Optional)
-                  </label>
-                  <select
-                    value={formData.reasonForSelling}
-                    onChange={(e) =>
-                      handleInputChange("reasonForSelling", e.target.value)
-                    }
-                    style={styles.select}
-                  >
-                    <option value="">Select reason (optional)</option>
-                    <option value="relocation">Relocation/Moving</option>
-                    <option value="financial">Financial hardship</option>
-                    <option value="divorce">Divorce</option>
-                    <option value="inheritance">Inherited property</option>
-                    <option value="downsizing">Downsizing</option>
-                    <option value="upgrade">Upgrading homes</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
               </div>
             </div>
           )}
@@ -1927,4 +1616,4 @@ const SellerBuyerForms = () => {
   );
 };
 
-export default SellerBuyerForms;
+export default BuyerForms;

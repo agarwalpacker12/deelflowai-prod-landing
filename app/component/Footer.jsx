@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function Footer() {
@@ -68,6 +69,15 @@ function Footer() {
               </li>
               <li>
                 <a href="#">Real-Time Trading</a>
+              </li>
+              <li>
+                <a href="/sell">Sell Your House</a>
+              </li>
+              {/* <li>
+                <a href="/buy">Become a Buyer</a>
+              </li> */}
+              <li>
+                <Link href="/buy">Become a Buyer</Link>{" "}
               </li>
             </ul>
           </div>

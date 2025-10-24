@@ -1,4 +1,5 @@
-'use client';
+"use client";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 function Header() {
@@ -28,9 +29,9 @@ function Header() {
   const minutes = Math.floor((countdownTime % 3600) / 60);
   const seconds = countdownTime % 60;
 
-  const timeString = `${hours.toString().padStart(2, '0')}:${minutes
+  const timeString = `${hours.toString().padStart(2, "0")}:${minutes
     .toString()
-    .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 
   return (
     <div className="scarcity-banner animate-pulse">
@@ -71,7 +72,11 @@ function Header() {
           <span>Price increases </span>
           <span style={{ color: "#fbbf24", fontWeight: "bold" }}>$300</span>
           <span>in 2 days</span>
+          <span>Become a Buyer</span>
         </div>
+        <Link href="/buy" className="buyer-item">
+          <span>Become a Buyer</span>
+        </Link>
       </div>
     </div>
   );
