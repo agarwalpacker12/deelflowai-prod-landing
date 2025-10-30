@@ -1,320 +1,8 @@
-// "use client";
-// import { PaymentAPI } from "@/app/services/api";
-// import React, { useEffect, useState } from "react";
-
-// function Pricing() {
-//   const [countdownTime, setCountdownTime] = useState(4 * 3600 + 23 * 60 + 17);
-//   const [professionalSpots, setProfessionalSpots] = useState(15);
-
-//   const [subscriptionPackState, setSubscriptionPackState] = useState();
-
-//   useEffect(() => {
-//     const fetchInvitation = async () => {
-//       try {
-//         const response = await PaymentAPI.getSubscriptionPack();
-//         if (response.data.status == "success") {
-//           console.log(
-//             "subscriptionPackState",
-//             JSON.stringify(response.data.data)
-//           );
-//           setSubscriptionPackState(response?.data?.data?.packages);
-//         }
-//       } catch (err) {
-//         console.error("Error fetching leads:", err);
-//       }
-//     };
-
-//     fetchInvitation();
-//   }, []);
-
-//   const handlePayment = async (id) => {
-//     try {
-//       const formattedData = {
-//         price_id: id,
-//       };
-//       const response = await PaymentAPI.createCheckout(formattedData);
-//       console.log("response", response.data.data);
-//       if (response.data.data.redirect_url) {
-//         window.location.href = response.data.data.redirect_url;
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   useEffect(() => {
-//     const timer = setInterval(() => {
-//       setCountdownTime((prev) => {
-//         if (prev <= 0) {
-//           clearInterval(timer);
-//           return 0;
-//         }
-//         return prev - 1;
-//       });
-
-//       // Random decreases for professional spots
-//       if (Math.random() < 0.05) {
-//         setProfessionalSpots((prev) => Math.max(1, prev - 1));
-//       }
-//     }, 1000);
-
-//     return () => clearInterval(timer);
-//   }, []);
-
-//   const hours = Math.floor(countdownTime / 3600);
-//   const minutes = Math.floor((countdownTime % 3600) / 60);
-//   const seconds = countdownTime % 60;
-
-//   const timeString = `${hours.toString().padStart(2, "0")}:${minutes
-//     .toString()
-//     .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-
-//   const selectPlan = (planName) => {
-//     console.log(`Selected plan: ${planName}`);
-
-//     if (typeof gtag !== "undefined") {
-//       gtag("event", "select_plan", {
-//         plan_name: planName,
-//         value:
-//           planName === "starter"
-//             ? 297
-//             : planName === "professional"
-//             ? 797
-//             : 1997,
-//       });
-//     }
-
-//     const signupSection = document.getElementById("signup-form");
-//     if (signupSection) {
-//       signupSection.scrollIntoView({
-//         behavior: "smooth",
-//         block: "start",
-//       });
-//     }
-
-//     const planField = document.getElementById("selected-plan");
-//     if (planField) {
-//       planField.value = planName;
-//     }
-//   };
-
-//   return (
-//     <section className="pricing" id="pricing">
-//       <div className="container">
-//         <div className="text-center mb-16">
-//           <h2 className="section-title">Choose Your Competitive Advantage</h2>
-//           <p className="section-subtitle">
-//             Limited-time pricing for the next
-//             <span id="pricing-countdown" className="countdown-text">
-//               {timeString}
-//             </span>
-//           </p>
-//         </div>
-
-//         <div className="pricing-grid">
-//           {/* Starter Plan */}
-//           <div className="pricing-card">
-//             <div className="pricing-header">
-//               <h3 className="pricing-title">Starter</h3>
-//               <div className="pricing-original">$997</div>
-//               <div className="pricing-price">
-//                 <span className="pricing-currency">$</span>
-//                 <span className="pricing-amount">297</span>
-//                 <span className="pricing-period">per month</span>
-//               </div>
-//             </div>
-
-//             <ul className="pricing-features">
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>50 AI Lead Analyses/month</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Basic blockchain escrow</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Email & SMS automation</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Standard reporting</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Mobile app access</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Email support</span>
-//               </li>
-//             </ul>
-
-//             <button
-//               className="pricing-button pricing-button-starter"
-//               // onClick={() => selectPlan("starter")}
-//               onClick={()=>handlePayment()}
-//             >
-//               Start Free Trial
-//             </button>
-
-//             <div className="pricing-notice">
-//               Price increases to $597 tomorrow
-//             </div>
-//           </div>
-
-//           {/* Professional Plan (Most Popular) */}
-//           <div className="pricing-card pricing-card-popular">
-//             <div className="pricing-badge">MOST POPULAR</div>
-//             <div className="pricing-header">
-//               <h3 className="pricing-title">Professional</h3>
-//               <div className="pricing-original">$2,997</div>
-//               <div className="pricing-price">
-//                 <span className="pricing-currency">$</span>
-//                 <span className="pricing-amount">797</span>
-//                 <span className="pricing-period">per month</span>
-//               </div>
-//             </div>
-
-//             <ul className="pricing-features">
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Unlimited AI analyses</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Advanced blockchain features</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Voice AI agents</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Transactional funding access</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Custom marketing funnels</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Priority support</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>White-label options</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>API access</span>
-//               </li>
-//             </ul>
-
-//             <button
-//               className="pricing-button pricing-button-popular"
-//               // onClick={() => selectPlan("professional")}
-//               onClick={()=>handlePayment(price_id)}
-//             >
-//               Start Free Trial
-//             </button>
-
-//             <div className="pricing-notice pricing-notice-popular">
-//               Only <span id="professional-spots">{professionalSpots}</span>{" "}
-//               spots left at this price!
-//             </div>
-//           </div>
-
-//           {/* Enterprise Plan */}
-//           <div className="pricing-card">
-//             <div className="pricing-header">
-//               <h3 className="pricing-title">Enterprise</h3>
-//               <div className="pricing-original">$4,997</div>
-//               <div className="pricing-price">
-//                 <span className="pricing-currency">$</span>
-//                 <span className="pricing-amount">1,997</span>
-//                 <span className="pricing-period">per month</span>
-//               </div>
-//             </div>
-
-//             <ul className="pricing-features">
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Everything in Professional</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Custom AI model training</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Dedicated success manager</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Custom integrations</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Advanced analytics</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>Team collaboration</span>
-//               </li>
-//               <li className="pricing-feature">
-//                 <i data-lucide="check-circle" className="pricing-check"></i>
-//                 <span>99.9% SLA guarantee</span>
-//               </li>
-//             </ul>
-
-//             <button
-//               className="pricing-button pricing-button-enterprise"
-//               onClick={() => selectPlan("enterprise")}
-//             >
-//               Contact Sales
-//             </button>
-
-//             <div className="pricing-notice">🎁 Exclusive - invitation only</div>
-//           </div>
-//         </div>
-
-//         {/* Pricing Guarantees */}
-//         <div className="pricing-guarantees">
-//           <div className="pricing-guarantee">
-//             <i data-lucide="shield-check" className="guarantee-icon"></i>
-//             <h4>30-Day Money-Back Guarantee</h4>
-//             <p>
-//               If you don't close at least one deal in 30 days, get a full refund
-//             </p>
-//           </div>
-//           <div className="pricing-guarantee">
-//             <i data-lucide="lock" className="guarantee-icon"></i>
-//             <h4>Price Lock Protection</h4>
-//             <p>Your rate is locked forever - even as we add new features</p>
-//           </div>
-//           <div className="pricing-guarantee">
-//             <i data-lucide="trending-up" className="guarantee-icon"></i>
-//             <h4>Success Guarantee</h4>
-//             <p>
-//               We guarantee you'll 10x your investment or work with you until you
-//               do
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-// export default Pricing;
-
 "use client";
-import { PaymentAPI } from "@/app/services/api";
+import { PaymentAPI } from "../../services/api";
 import React, { useEffect, useState } from "react";
 
-function Pricing() {
+function Pricing({ onAuthRequired, checkUserAuth }) {
   const [countdownTime, setCountdownTime] = useState(4 * 3600 + 23 * 60 + 17);
   const [professionalSpots, setProfessionalSpots] = useState(15);
   const [subscriptionPackState, setSubscriptionPackState] = useState([]);
@@ -334,31 +22,24 @@ function Pricing() {
     fetchSubscriptionPacks();
   }, []);
 
-  // const handlePayment = async (price_id) => {
-  //   try {
-  //     const response = await PaymentAPI.createCheckout({ price_id });
-  //     if (response.data.data.redirect_url) {
-  //       window.location.href = response.data.data.redirect_url;
-  //     }
-  //   } catch (err) {
-  //     console.error("Error initiating payment:", err);
-  //   }
-  // };
-
-  const parseFeatures = (description) => {
-    if (!description) return [];
-    // Split by capital letters followed by lowercase (camelCase splits)
-    const features = description.split(/(?=[A-Z])/);
-    return features.map((f) => f.trim());
-  };
-
   const handlePayment = async (price_id) => {
     try {
-      const response = await PaymentAPI.createCheckout({
-        price_id,
-      });
-      if (response.data.data.url) {
+      // Check user authentication before proceeding
+      const userData = localStorage.getItem("user");
+
+      if (!userData) {
+        // If user not logged in, show auth modal / popup
+        if (onAuthRequired) onAuthRequired();
+        return;
+      }
+
+      // Proceed with payment creation
+      const response = await PaymentAPI.createCheckout({ price_id });
+
+      if (response?.data?.data?.url) {
         window.location.href = response.data.data.url;
+      } else {
+        console.error("Checkout URL not found in response:", response);
       }
     } catch (err) {
       console.error("Error initiating payment:", err);
@@ -382,6 +63,13 @@ function Pricing() {
 
     return () => clearInterval(timer);
   }, []);
+
+  const checkUser = () => {
+    if (checkUserAuth && !checkUserAuth()) {
+      onAuthRequired && onAuthRequired();
+      return;
+    }
+  };
 
   const hours = Math.floor(countdownTime / 3600);
   const minutes = Math.floor((countdownTime % 3600) / 60);
@@ -436,14 +124,6 @@ function Pricing() {
                     </div>
                   </div>
 
-                  {/* <ul className="pricing-features">
-                    {parseFeatures(pack.description).map((feature, idx) => (
-                      <li key={idx} className="pricing-feature">
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul> */}
-
                   <p className="pricing-features">{pack.description}</p>
 
                   <button
@@ -454,8 +134,9 @@ function Pricing() {
                         ? "pricing-button-popular"
                         : "pricing-button-enterprise"
                     }`}
-                    onClick={() =>
-                      isEnterprise ? null : handlePayment(pack.price_id)
+                    onClick={
+                      () => handlePayment(pack.price_id)
+                      // isEnterprise ? null : handlePayment(pack.price_id)
                     }
                   >
                     {isEnterprise ? "Contact Sales" : "Start Free Trial"}
@@ -481,7 +162,99 @@ function Pricing() {
               );
             })
           ) : (
-            <p>Loading plans...</p>
+            <>
+              {/* Dummy Starter Plan */}
+              <div className="pricing-card">
+                <div className="pricing-header">
+                  <h3 className="pricing-title">Starter</h3>
+                  <div className="pricing-original">$997</div>
+                  <div className="pricing-price">
+                    <span className="pricing-currency">$</span>
+                    <span className="pricing-amount">297</span>
+                    <span className="pricing-period">per month</span>
+                  </div>
+                </div>
+
+                <p className="pricing-features">
+                  50 AI Lead Analyses/month
+                  <br />
+                  Basic blockchain escrow
+                  <br />
+                  Email & SMS automation
+                </p>
+                <button
+                  className="pricing-button pricing-button-starter"
+                  // disabled
+                  onClick={() => checkUser()}
+                >
+                  Start Free Trial
+                </button>
+                <div className="pricing-notice">Loading pricing...</div>
+              </div>
+
+              {/* Dummy Professional Plan */}
+              <div className="pricing-card pricing-card-popular">
+                <div className="pricing-badge">MOST POPULAR</div>
+                <div className="pricing-header">
+                  <h3 className="pricing-title">Professional</h3>
+                  <div className="pricing-original">$2,997</div>
+                  <div className="pricing-price">
+                    <span className="pricing-currency">$</span>
+                    <span className="pricing-amount">797</span>
+                    <span className="pricing-period">per month</span>
+                  </div>
+                </div>
+
+                <p className="pricing-features">
+                  Unlimited AI analyses
+                  <br />
+                  Advanced blockchain features
+                  <br />
+                  Voice AI agents
+                </p>
+
+                <button
+                  className="pricing-button pricing-button-popular"
+                  // disabled
+                  onClick={() => checkUser()}
+                >
+                  Start Free Trial
+                </button>
+                <div className="pricing-notice pricing-notice-popular">
+                  Loading pricing...
+                </div>
+              </div>
+
+              {/* Dummy Enterprise Plan */}
+              <div className="pricing-card">
+                <div className="pricing-header">
+                  <h3 className="pricing-title">Enterprise</h3>
+                  <div className="pricing-original">$4,997</div>
+                  <div className="pricing-price">
+                    <span className="pricing-currency">$</span>
+                    <span className="pricing-amount">1,997</span>
+                    <span className="pricing-period">per month</span>
+                  </div>
+                </div>
+
+                <p className="pricing-features">
+                  Everything in Professional
+                  <br />
+                  Custom AI model training
+                  <br />
+                  Dedicated success manager
+                </p>
+
+                <button
+                  className="pricing-button pricing-button-enterprise"
+                  // disabled
+                  onClick={() => checkUser()}
+                >
+                  Contact Sales
+                </button>
+                <div className="pricing-notice">Loading pricing...</div>
+              </div>
+            </>
           )}
         </div>
       </div>

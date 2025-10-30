@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -11,6 +10,13 @@ function Navbar() {
   const [activeUsers, setActiveUsers] = useState(3847);
   const [dailyDeals, setDailyDeals] = useState(127);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setIsLoggedIn(!!localStorage.getItem("token"));
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -129,7 +135,7 @@ function Navbar() {
           </nav>
 
           {/* Desktop CTA */}
-          <div
+          {/* <div
             className="flex items-center desktop-cta"
             style={{ gap: "1rem" }}
           >
@@ -165,24 +171,67 @@ function Navbar() {
             >
               Sign in
             </a>
-          </div>
+          </div> */}
+
+          {isLoggedIn ? (
+            <button
+              className="gradient-button"
+              style={{
+                color: "white",
+                padding: "0.5rem 1.5rem",
+                borderRadius: "9999px",
+                fontWeight: 600,
+                border: "none",
+                cursor: "pointer",
+                textDecoration: "none",
+              }}
+              onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+                window.location.reload();
+              }}
+            >
+              Sign out
+            </button>
+          ) : (
+            <Link href={"/login"}>
+              <button
+                className="gradient-button"
+                style={{
+                  color: "white",
+                  padding: "0.5rem 1.5rem",
+                  borderRadius: "9999px",
+                  fontWeight: 600,
+                  border: "none",
+                  cursor: "pointer",
+                  textDecoration: "none",
+                }}
+              >
+                Sign in
+              </button>
+            </Link>
+          )}
 
           {/* Mobile Header Right (Buttons + Menu) */}
           <div className="mobile-header-right">
             {/* Mobile CTA Buttons (visible on tablet/medium screens) */}
             <div className="mobile-cta-buttons">
-              <a
-                href="https://apps.deelflowai.com/register"
-                className="mobile-btn-signup"
-              >
-                Sign up
-              </a>
-              <a
-                href="https://apps.deelflowai.com/login"
-                className="mobile-btn-signin"
-              >
-                Sign in
-              </a>
+              {isLoggedIn ? (
+                <button
+                  className="mobile-btn-signin"
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                    window.location.reload();
+                  }}
+                >
+                  Sign out
+                </button>
+              ) : (
+                <Link href="/login" className="mobile-btn-signin">
+                  Sign in
+                </Link>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -239,45 +288,49 @@ function Navbar() {
           {/* Mobile Menu CTA */}
           <div className="mobile-menu-cta">
             <div className="mobile-menu-buttons">
-              <a
-                href="https://apps.deelflowai.com/register"
-                style={{
-                  color: "#6b7280",
-                  fontWeight: 500,
-                  background: "none",
-                  borderWidth: "1px",
-                  borderStyle: "solid",
-                  borderColor: "#d1d5db",
-                  cursor: "pointer",
-                  textDecoration: "none",
-                  padding: "0.75rem 1.5rem",
-                  borderRadius: "0.375rem",
-                  transition: "all 0.3s ease",
-                  textAlign: "center",
-                  display: "block",
-                  flex: 1,
-                }}
-              >
-                Sign up
-              </a>
-              <a
-                href="https://apps.deelflowai.com/login"
-                className="gradient-button"
-                style={{
-                  color: "white",
-                  padding: "0.75rem 1.5rem",
-                  borderRadius: "9999px",
-                  fontWeight: 600,
-                  border: "none",
-                  cursor: "pointer",
-                  textDecoration: "none",
-                  textAlign: "center",
-                  display: "block",
-                  flex: 1,
-                }}
-              >
-                Sign in
-              </a>
+              {isLoggedIn ? (
+                <button
+                  className="gradient-button"
+                  style={{
+                    color: "white",
+                    padding: "0.75rem 1.5rem",
+                    borderRadius: "9999px",
+                    fontWeight: 600,
+                    border: "none",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    textAlign: "center",
+                    display: "block",
+                    flex: 1,
+                  }}
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                    window.location.reload();
+                  }}
+                >
+                  Sign out
+                </button>
+              ) : (
+                <Link
+                  href="/login"
+                  className="gradient-button"
+                  style={{
+                    color: "white",
+                    padding: "0.75rem 1.5rem",
+                    borderRadius: "9999px",
+                    fontWeight: 600,
+                    border: "none",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    textAlign: "center",
+                    display: "block",
+                    flex: 1,
+                  }}
+                >
+                  Sign in
+                </Link>
+              )}
             </div>
 
             {/* Mobile Social Proof */}
@@ -293,12 +346,15 @@ function Navbar() {
                   className="animate-pulse"
                 ></div>
                 <span id="mobile-active-users">
-                  {activeUsers.toLocaleString()}
+                  {mounted ? activeUsers.toLocaleString() : "3,847"}
                 </span>
                 <span>active</span>
               </span>
               <span>
-                <span id="mobile-daily-deals">{dailyDeals}</span> deals today
+                <span id="mobile-daily-deals">
+                  {mounted ? dailyDeals : "127"}
+                </span>{" "}
+                deals today
               </span>
             </div>
           </div>
