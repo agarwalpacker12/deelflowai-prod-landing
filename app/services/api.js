@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // Base URLs - matching your Django server
-// const BASE_URL = "http://localhost:8140";
 const BASE_URL = "https://api.deelflowai.com";
+// const BASE_URL = "http://dev.deelflowai.com:8140";
 const API_BASE_URL = `${BASE_URL}/api`;
 
 // Create a single API instance for all requests
@@ -28,19 +28,6 @@ const AllPOSTHeader = axios.create({
     "X-Requested-With": "XMLHttpRequest",
   },
 });
-
-const apiWithoutBaseOnUrl = axios.create({
-  baseURL: BASE_URL, // Use base URL without /api prefix
-  withCredentials: true,
-  credentials: "include", // 👈 REQUIRED for session cookies
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    "X-Requested-With": "XMLHttpRequest",
-  },
-});
-
-// No CSRF token needed for JWT authentication
 
 // Request interceptor to add JWT token
 api.interceptors.request.use(
@@ -123,6 +110,18 @@ export const PaymentAPI = {
     AllPOSTHeader.post(`/create-customer-portal-session/`),
   getTransactionList: () => AllPOSTHeader.post(`/stripe-invoice/`),
   getCurrentPack: () => AllPOSTHeader.get(`/current-subscription/`),
+};
+
+export const propertiesAPI = {
+  getProperties: (params) => api.get("/properties/", { params }),
+  getProperty: (id) => api.get(`/properties/${id}/`),
+  createProperty: (data) => api.post("/properties/", data),
+  updateProperty: (id, data) => api.put(`/properties/${id}/`, data),
+  deleteProperty: (id) => api.delete(`/properties/${id}/`),
+  getAIAnalysis: (id) => api.get(`/properties/${id}/ai-analysis/`),
+
+  getCombinedProperties: (params) =>
+    api.get("/properties/combined", { params }),
 };
 
 export default api;
