@@ -65,7 +65,7 @@ const LoginPage = () => {
 
       if (login.fulfilled.match(resultAction)) {
         setOrgLoading(true);
-        router.push("/profile");
+        router.push("https://apps.deelflowai.com/profile");
       }
     } catch (error) {
       console.error("Login failed:", error);
