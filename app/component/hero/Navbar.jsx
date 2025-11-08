@@ -275,7 +275,7 @@ function Navbar() {
                 cursor: "pointer",
                 textDecoration: "none",
               }}
-              onClick={() => router.push("http://dev.deelflowai.com/login")}
+              onClick={() => router.push("https://apps.deelflowai.com/login")}
             >
               Sign in
             </button>
@@ -309,7 +309,9 @@ function Navbar() {
                     cursor: "pointer",
                     textDecoration: "none",
                   }}
-                  onClick={() => router.push("http://dev.deelflowai.com/login")}
+                  onClick={() =>
+                    router.push("https://apps.deelflowai.com/login")
+                  }
                 >
                   Sign in
                 </button>
@@ -405,7 +407,9 @@ function Navbar() {
                     cursor: "pointer",
                     textDecoration: "none",
                   }}
-                  onClick={() => router.push("http://dev.deelflowai.com/login")}
+                  onClick={() =>
+                    router.push("https://apps.deelflowai.com/login")
+                  }
                 >
                   Sign in
                 </button>
